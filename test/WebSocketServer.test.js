@@ -256,23 +256,11 @@ describe('WebSocketServer', function() {
   describe('#clients', function() {
     it('returns a list of connected clients', function(done) {
       var wss = new WebSocketServer({port: ++port}, function() {
-        wss.clients.length.should.eql(0);
+        Object.keys(wss.clients).length.should.eql(0);
         var ws = new WebSocket('ws://localhost:' + port);
       });
       wss.on('connection', function(client) {
-        wss.clients.length.should.eql(1);
-        wss.close();
-        done();
-      });
-    });
-
-    it('can be disabled', function(done) {
-      var wss = new WebSocketServer({port: ++port, clientTracking: false}, function() {
-        wss.clients.length.should.eql(0);
-        var ws = new WebSocket('ws://localhost:' + port);
-      });
-      wss.on('connection', function(client) {
-        wss.clients.length.should.eql(0);
+        Object.keys(wss.clients).length.should.eql(1);
         wss.close();
         done();
       });
@@ -285,7 +273,7 @@ describe('WebSocketServer', function() {
       });
       wss.on('connection', function(client) {
         client.on('close', function() {
-          wss.clients.length.should.eql(0);
+          Object.keys(wss.clients).length.should.eql(0);
           wss.close();
           done();
         });
@@ -300,7 +288,7 @@ describe('WebSocketServer', function() {
       });
       wss.on('connection', function(client) {
         client.on('close', function() {
-          wss.clients.length.should.eql(0);
+          Object.keys(wss.clients).length.should.eql(0);
           wss.close();
           done();
         });
