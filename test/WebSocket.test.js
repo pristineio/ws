@@ -870,7 +870,7 @@ describe('WebSocket', function() {
         var ws = new WebSocket('ws://localhost:' + port);
         var callbackFired = false;
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.bufferSize = 100;
           ws.send(fileStream, {binary: true}, function(error) {
             assert.equal(null, error);
@@ -879,7 +879,7 @@ describe('WebSocket', function() {
         });
         srv.on('message', function(data, flags) {
           assert.ok(flags.binary);
-          assert.ok(areArraysEqual(fs.readFileSync('test/fixtures/textfile'), data));
+          assert.ok(areArraysEqual(fs.readFileSync(__dirname + '/fixtures/textfile'), data));
           ws.terminate();
         });
         ws.on('close', function() {
@@ -895,7 +895,7 @@ describe('WebSocket', function() {
         var ws = new WebSocket('ws://localhost:' + port);
         var callbackFired = false;
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.setEncoding('utf8');
           fileStream.bufferSize = 100;
           ws.send(fileStream, {binary: false}, function(error) {
@@ -905,7 +905,7 @@ describe('WebSocket', function() {
         });
         srv.on('message', function(data, flags) {
           assert.ok(!flags.binary);
-          assert.ok(areArraysEqual(fs.readFileSync('test/fixtures/textfile', 'utf8'), data));
+          assert.ok(areArraysEqual(fs.readFileSync(__dirname + '/fixtures/textfile', 'utf8'), data));
           ws.terminate();
         });
         ws.on('close', function() {
@@ -920,7 +920,7 @@ describe('WebSocket', function() {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.setEncoding('utf8');
           fileStream.bufferSize = 100;
           ws.send(fileStream);
@@ -932,7 +932,7 @@ describe('WebSocket', function() {
           ++receivedIndex;
           if (receivedIndex == 1) {
             assert.ok(!flags.binary);
-            assert.ok(areArraysEqual(fs.readFileSync('test/fixtures/textfile', 'utf8'), data));
+            assert.ok(areArraysEqual(fs.readFileSync(__dirname + '/fixtures/textfile', 'utf8'), data));
           }
           else if (receivedIndex == 2) {
             assert.ok(!flags.binary);
@@ -953,7 +953,7 @@ describe('WebSocket', function() {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.setEncoding('utf8');
           fileStream.bufferSize = 100;
           ws.send(fileStream);
@@ -969,7 +969,7 @@ describe('WebSocket', function() {
           ++receivedIndex;
           if (receivedIndex == 1) {
             assert.ok(!flags.binary);
-            assert.ok(areArraysEqual(fs.readFileSync('test/fixtures/textfile', 'utf8'), data));
+            assert.ok(areArraysEqual(fs.readFileSync(__dirname + '/fixtures/textfile', 'utf8'), data));
           }
           else if (receivedIndex == 2) {
             assert.ok(!flags.binary);
@@ -986,7 +986,7 @@ describe('WebSocket', function() {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.setEncoding('utf8');
           fileStream.bufferSize = 100;
           ws.send(fileStream);
@@ -995,7 +995,7 @@ describe('WebSocket', function() {
         var receivedIndex = 0;
         srv.on('message', function(data, flags) {
           assert.ok(!flags.binary);
-          assert.ok(areArraysEqual(fs.readFileSync('test/fixtures/textfile', 'utf8'), data));
+          assert.ok(areArraysEqual(fs.readFileSync(__dirname + '/fixtures/textfile', 'utf8'), data));
           if (++receivedIndex == 2) {
             srv.close();
             ws.terminate();
@@ -1017,7 +1017,7 @@ describe('WebSocket', function() {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.setEncoding('utf8');
           fileStream.bufferSize = 100;
           ws.send(fileStream);
@@ -1026,7 +1026,7 @@ describe('WebSocket', function() {
         var receivedIndex = 0;
         srv.on('message', function(data, flags) {
           assert.ok(!flags.binary);
-          assert.ok(areArraysEqual(fs.readFileSync('test/fixtures/textfile', 'utf8'), data));
+          assert.ok(areArraysEqual(fs.readFileSync(__dirname + '/fixtures/textfile', 'utf8'), data));
           if (++receivedIndex == 2) {
             srv.close();
             ws.terminate();
@@ -1048,7 +1048,7 @@ describe('WebSocket', function() {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.setEncoding('utf8');
           fileStream.bufferSize = 100;
           ws.send(fileStream);
@@ -1062,7 +1062,7 @@ describe('WebSocket', function() {
         ws.on('error', function() { /* That's quite alright -- a send was attempted after close */ });
         srv.on('message', function(data, flags) {
           assert.ok(!flags.binary);
-          assert.ok(areArraysEqual(fs.readFileSync('test/fixtures/textfile', 'utf8'), data));
+          assert.ok(areArraysEqual(fs.readFileSync(__dirname + '/fixtures/textfile', 'utf8'), data));
         });
         srv.on('close', function(code, data) {
           assert.equal(1000, code);
@@ -1339,7 +1339,7 @@ describe('WebSocket', function() {
         var ws = new WebSocket('ws://localhost:' + port);
         var errorGiven = false;
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.setEncoding('utf8');
           fileStream.bufferSize = 100;
           ws.send(fileStream, function(error) {
@@ -1643,8 +1643,8 @@ describe('WebSocket', function() {
   describe('ssl', function() {
     it('can connect to secure websocket server', function(done) {
       var options = {
-        key: fs.readFileSync('test/fixtures/key.pem'),
-        cert: fs.readFileSync('test/fixtures/certificate.pem')
+        key: fs.readFileSync(__dirname + '/fixtures/key.pem'),
+        cert: fs.readFileSync(__dirname + '/fixtures/certificate.pem')
       };
       var app = https.createServer(options, function (req, res) {
         res.writeHead(200);
@@ -1664,14 +1664,14 @@ describe('WebSocket', function() {
 
     it('can connect to secure websocket server with client side certificate', function(done) {
       var options = {
-        key: fs.readFileSync('test/fixtures/key.pem'),
-        cert: fs.readFileSync('test/fixtures/certificate.pem'),
-        ca: [fs.readFileSync('test/fixtures/ca1-cert.pem')],
+        key: fs.readFileSync(__dirname + '/fixtures/key.pem'),
+        cert: fs.readFileSync(__dirname + '/fixtures/certificate.pem'),
+        ca: [fs.readFileSync(__dirname + '/fixtures/ca1-cert.pem')],
         requestCert: true
       };
       var clientOptions = {
-        key: fs.readFileSync('test/fixtures/agent1-key.pem'),
-        cert: fs.readFileSync('test/fixtures/agent1-cert.pem')
+        key: fs.readFileSync(__dirname + '/fixtures/agent1-key.pem'),
+        cert: fs.readFileSync(__dirname + '/fixtures/agent1-cert.pem')
       };
       var app = https.createServer(options, function (req, res) {
         res.writeHead(200);
@@ -1699,8 +1699,8 @@ describe('WebSocket', function() {
 
     it('cannot connect to secure websocket server via ws://', function(done) {
       var options = {
-        key: fs.readFileSync('test/fixtures/key.pem'),
-        cert: fs.readFileSync('test/fixtures/certificate.pem')
+        key: fs.readFileSync(__dirname + '/fixtures/key.pem'),
+        cert: fs.readFileSync(__dirname + '/fixtures/certificate.pem')
       };
       var app = https.createServer(options, function (req, res) {
         res.writeHead(200);
@@ -1720,8 +1720,8 @@ describe('WebSocket', function() {
 
     it('can send and receive text data', function(done) {
       var options = {
-        key: fs.readFileSync('test/fixtures/key.pem'),
-        cert: fs.readFileSync('test/fixtures/certificate.pem')
+        key: fs.readFileSync(__dirname + '/fixtures/key.pem'),
+        cert: fs.readFileSync(__dirname + '/fixtures/certificate.pem')
       };
       var app = https.createServer(options, function (req, res) {
         res.writeHead(200);
@@ -1747,8 +1747,8 @@ describe('WebSocket', function() {
 
     it('can send and receive very long binary data', function(done) {
       var options = {
-        key: fs.readFileSync('test/fixtures/key.pem'),
-        cert: fs.readFileSync('test/fixtures/certificate.pem')
+        key: fs.readFileSync(__dirname + '/fixtures/key.pem'),
+        cert: fs.readFileSync(__dirname + '/fixtures/certificate.pem')
       }
       var app = https.createServer(options, function (req, res) {
         res.writeHead(200);
@@ -2001,7 +2001,7 @@ describe('WebSocket', function() {
         var ws = new WebSocket('ws://localhost:' + port, {perMessageDeflate: true});
         var callbackFired = false;
         ws.on('open', function() {
-          var fileStream = fs.createReadStream('test/fixtures/textfile');
+          var fileStream = fs.createReadStream(__dirname + '/fixtures/textfile');
           fileStream.bufferSize = 100;
           ws.send(fileStream, {binary: true, compress: true}, function(error) {
             assert.equal(null, error);
@@ -2017,7 +2017,7 @@ describe('WebSocket', function() {
       wss.on('connection', function(ws) {
         ws.on('message', function(data, flags) {
           assert.ok(flags.binary);
-          assert.ok(areArraysEqual(fs.readFileSync('test/fixtures/textfile'), data));
+          assert.ok(areArraysEqual(fs.readFileSync(__dirname + '/fixtures/textfile'), data));
           ws.terminate();
         });
       });
