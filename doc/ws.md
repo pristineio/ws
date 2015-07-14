@@ -182,17 +182,6 @@ Streams data through calls to a user supplied function. `options` can be an obje
 
 Immediately shuts down the connection
 
-### websocket.onopen
-### websocket.onerror
-### websocket.onclose
-### websocket.onmessage
-
-Emulates the W3C Browser based WebSocket interface using function members.
-
-### websocket.addEventListener(method, listener)
-
-Emulates the W3C Browser based WebSocket interface using addEventListener.
-
 ### Event: 'error'
 
 `function (error) { }`

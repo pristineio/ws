@@ -109,14 +109,14 @@ describe('WebSocket', function() {
         server.createServer(++port, function(srv) {
           var url = 'ws://localhost:' + port;
           var ws = new WebSocket(url);
-          ws.onopen = function() {
+          ws.on('open', function() {
             assert.equal(0, ws.bufferedAmount);
             ws.terminate();
             ws.on('close', function() {
               srv.close();
               done();
             });
-          };
+          });
         });
       });
 
@@ -688,13 +688,13 @@ describe('WebSocket', function() {
         ws.on('open', function() {
           ws.send(array.buffer);
         });
-        ws.onmessage = function (event) {
-          assert.ok(event.binary);
-          assert.ok(areArraysEqual(array, new Float32Array(getArrayBuffer(event.data))));
+        ws.on('message', function(event, flags) {
+          assert.ok(flags.binary);
+          assert.ok(areArraysEqual(array, new Float32Array(getArrayBuffer(event))));
           ws.terminate();
           srv.close();
           done();
-        };
+        });
       });
     });
 
@@ -705,13 +705,13 @@ describe('WebSocket', function() {
         ws.on('open', function() {
           ws.send(buf);
         });
-        ws.onmessage = function (event) {
-          assert.ok(event.binary);
-          assert.ok(areArraysEqual(event.data, buf));
+        ws.on('message', function (event, flags) {
+          assert.ok(flags.binary);
+          assert.ok(areArraysEqual(event, buf));
           ws.terminate();
           srv.close();
           done();
-        };
+        });
       });
     });
 
@@ -1447,169 +1447,6 @@ describe('WebSocket', function() {
             done();
           }
         });
-      });
-    });
-  });
-
-  describe('W3C API emulation', function() {
-    it('should not throw errors when getting and setting', function(done) {
-      server.createServer(++port, function(srv) {
-        var ws = new WebSocket('ws://localhost:' + port);
-        var listener = function () {};
-
-        ws.onmessage = listener;
-        ws.onerror = listener;
-        ws.onclose = listener;
-        ws.onopen = listener;
-
-        assert.ok(ws.onopen === listener);
-        assert.ok(ws.onmessage === listener);
-        assert.ok(ws.onclose === listener);
-        assert.ok(ws.onerror === listener);
-
-        srv.close();
-        ws.terminate();
-        done();
-      });
-    });
-
-    it('should work the same as the EventEmitter api', function(done) {
-      server.createServer(++port, function(srv) {
-        var ws = new WebSocket('ws://localhost:' + port);
-        var listener = function() {};
-        var message = 0;
-        var close = 0;
-        var open = 0;
-
-        ws.onmessage = function(messageEvent) {
-          assert.ok(!!messageEvent.data);
-          ++message;
-          ws.close();
-        };
-
-        ws.onopen = function() {
-          ++open;
-        }
-
-        ws.onclose = function() {
-          ++close;
-        }
-
-        ws.on('open', function() {
-          ws.send('foo');
-        });
-
-        ws.on('close', function() {
-          process.nextTick(function() {
-            assert.ok(message === 1);
-            assert.ok(open === 1);
-            assert.ok(close === 1);
-
-            srv.close();
-            ws.terminate();
-            done();
-          });
-        });
-      });
-    });
-
-    it('should receive text data wrapped in a MessageEvent when using addEventListener', function(done) {
-      server.createServer(++port, function(srv) {
-        var ws = new WebSocket('ws://localhost:' + port);
-        ws.addEventListener('open', function() {
-          ws.send('hi');
-        });
-        ws.addEventListener('message', function(messageEvent) {
-          assert.equal('hi', messageEvent.data);
-          ws.terminate();
-          srv.close();
-          done();
-        });
-      });
-    });
-
-    it('should receive valid CloseEvent when server closes with code 1000', function(done) {
-      var wss = new WebSocketServer({port: ++port}, function() {
-        var ws = new WebSocket('ws://localhost:' + port);
-        ws.addEventListener('close', function(closeEvent) {
-          assert.equal(true, closeEvent.wasClean);
-          assert.equal(1000, closeEvent.code);
-          ws.terminate();
-          wss.close();
-          done();
-        });
-      });
-      wss.on('connection', function(client) {
-        client.close(1000);
-      });
-    });
-
-    it('should receive valid CloseEvent when server closes with code 1001', function(done) {
-      var wss = new WebSocketServer({port: ++port}, function() {
-        var ws = new WebSocket('ws://localhost:' + port);
-        ws.addEventListener('close', function(closeEvent) {
-          assert.equal(false, closeEvent.wasClean);
-          assert.equal(1001, closeEvent.code);
-          assert.equal('some daft reason', closeEvent.reason);
-          ws.terminate();
-          wss.close();
-          done();
-        });
-      });
-      wss.on('connection', function(client) {
-        client.close(1001, 'some daft reason');
-      });
-    });
-
-    it('should have target set on Events', function(done) {
-      var wss = new WebSocketServer({port: ++port}, function() {
-        var ws = new WebSocket('ws://localhost:' + port);
-        ws.addEventListener('open', function(openEvent) {
-          assert.equal(ws, openEvent.target);
-        });
-        ws.addEventListener('message', function(messageEvent) {
-          assert.equal(ws, messageEvent.target);
-          wss.close();
-        });
-        ws.addEventListener('close', function(closeEvent) {
-          assert.equal(ws, closeEvent.target);
-          ws.emit('error', new Error('forced'));
-        });
-        ws.addEventListener('error', function(errorEvent) {
-          assert.equal(errorEvent.message, 'forced');
-          assert.equal(ws, errorEvent.target);
-          ws.terminate();
-          done();
-        });
-      });
-      wss.on('connection', function(client) {
-        client.send('hi')
-      });
-    });
-
-    it('should have type set on Events', function(done) {
-      var wss = new WebSocketServer({port: ++port}, function() {
-        var ws = new WebSocket('ws://localhost:' + port);
-        ws.addEventListener('open', function(openEvent) {
-          assert.equal('open', openEvent.type);
-        });
-        ws.addEventListener('message', function(messageEvent) {
-          assert.equal('message', messageEvent.type);
-          wss.close();
-        });
-        ws.addEventListener('close', function(closeEvent) {
-          assert.equal('close', closeEvent.type);
-          ws.emit('error', new Error('forced'));
-        });
-        ws.addEventListener('error', function(errorEvent) {
-          assert.equal(errorEvent.message, 'forced');
-          assert.equal('error', errorEvent.type);
-          ws.terminate();
-          done();
-        });
-      });
-      wss.on('connection', function(client) {
-        client.send('hi')
       });
     });
   });
