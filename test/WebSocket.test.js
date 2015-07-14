@@ -50,32 +50,6 @@ describe('WebSocket', function() {
     });
   });
 
-  describe('options', function() {
-    it('should accept an `agent` option', function(done) {
-      var wss = new WebSocketServer({port: ++port}, function() {
-        var agent = {
-          addRequest: function() {
-            wss.close();
-            done();
-          }
-        };
-        var ws = new WebSocket('ws://localhost:' + port, { agent: agent });
-      });
-    });
-    // GH-227
-    it('should accept the `options` object as the 3rd argument', function(done) {
-      var wss = new WebSocketServer({port: ++port}, function() {
-        var agent = {
-          addRequest: function() {
-            wss.close();
-            done();
-          }
-        };
-        var ws = new WebSocket('ws://localhost:' + port, [], { agent: agent });
-      });
-    });
-  });
-
   describe('properties', function() {
     it('#bytesReceived exposes number of bytes received', function(done) {
       var wss = new WebSocketServer({port: ++port}, function() {
@@ -1789,29 +1763,6 @@ describe('WebSocket', function() {
           });
           wss.on('connection', function(client) {
             assert.equal(true, client.supports.binary);
-            wss.close();
-            done();
-          });
-        });
-
-        it('returns false for hixie transport', function(done) {
-          var wss = new WebSocketServer({port: ++port}, function() {
-            var options = {
-              port: port,
-              host: '127.0.0.1',
-              headers: {
-                'Connection': 'Upgrade',
-                'Upgrade': 'WebSocket',
-                'Sec-WebSocket-Key1': '3e6b263  4 17 80',
-                'Sec-WebSocket-Key2': '17  9 G`ZD9   2 2b 7X 3 /r90'
-              }
-            };
-            var req = http.request(options);
-            req.write('WjN}|M(6');
-            req.end();
-          });
-          wss.on('connection', function(client) {
-            assert.equal(false, client.supports.binary);
             wss.close();
             done();
           });

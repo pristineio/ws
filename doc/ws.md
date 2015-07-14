@@ -14,7 +14,6 @@ This class is a WebSocket server. It is an `EventEmitter`.
   * `handleProtocols` Function
   * `path` String
   * `noServer` Boolean
-  * `disableHixie` Boolean
   * `clientTracking` Boolean
   * `perMessageDeflate` Boolean|Object
 * `callback` Function
@@ -136,7 +135,7 @@ Possible states are `WebSocket.CONNECTING`, `WebSocket.OPEN`, `WebSocket.CLOSING
 
 ### websocket.protocolVersion
 
-The WebSocket protocol version used for this connection, `8`, `13` or `hixie-76` (the latter only for server clients).
+The WebSocket protocol version used for this connection, `8`, `13` (the latter only for server clients).
 
 ### websocket.url
 
