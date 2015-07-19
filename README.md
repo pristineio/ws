@@ -1,12 +1,8 @@
-# ws: a node.js websocket library
+# wsd: yet another node.js websocket library
 
 [![Build Status](https://travis-ci.org/websockets/ws.svg?branch=master)](https://travis-ci.org/websockets/ws)
 
-`ws` is a simple to use WebSocket implementation, up-to-date against RFC-6455,
-and [probably the fastest WebSocket library for node.js][archive].
-
-Passes the quite extensive Autobahn test suite. See http://websockets.github.com/ws
-for the full reports.
+`wsd` is a simplified fork of `ws`.
 
 ## Protocol support
 
@@ -16,7 +12,7 @@ for the full reports.
 ### Installing
 
 ```
-npm install --save ws
+npm install --save wsd
 ```
 
 ### Sending and receiving text data
@@ -24,7 +20,6 @@ npm install --save ws
 ```js
 var WebSocket = require('ws');
 var ws = new WebSocket('ws://www.host.com/path');
-
 ws.on('open', function open() {
   ws.send('something');
 });
@@ -59,14 +54,12 @@ data.
 ### Server example
 
 ```js
-var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ port: 8080 });
-
+var WebSocketServer = require('ws').Server;
+var wss = new WebSocketServer({ port: 8080 });
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
     console.log('received: %s', message);
   });
-
   ws.send('something');
 });
 ```
@@ -74,9 +67,8 @@ wss.on('connection', function connection(ws) {
 ### Server sending broadcast data
 
 ```js
-var WebSocketServer = require('ws').Server
-  , wss = new WebSocketServer({ port: 8080 });
-
+var WebSocketServer = require('ws').Server;
+var wss = new WebSocketServer({ port: 8080 });
 wss.broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
     client.send(data);
@@ -105,50 +97,6 @@ try { ws.send('something'); }
 catch (e) { /* handle error */ }
 ```
 
-### echo.websocket.org demo
-
-```js
-var WebSocket = require('ws');
-var ws = new WebSocket('ws://echo.websocket.org/', {
-  protocolVersion: 8, 
-  origin: 'http://websocket.org'
-});
-
-ws.on('open', function open() {
-  console.log('connected');
-  ws.send(Date.now().toString(), {mask: true});
-});
-
-ws.on('close', function close() {
-  console.log('disconnected');
-});
-
-ws.on('message', function message(data, flags) {
-  console.log('Roundtrip time: ' + (Date.now() - parseInt(data)) + 'ms', flags);
-
-  setTimeout(function timeout() {
-    ws.send(Date.now().toString(), {mask: true});
-  }, 500);
-});
-```
-
-### Browserify users
-When including ws via a browserify bundle, ws returns global.WebSocket which has slightly different API. 
-You should use the standard WebSockets API instead.
-
-https://developer.mozilla.org/en-US/docs/WebSockets/Writing_WebSocket_client_applications#Availability_of_WebSockets
-
-
-### Other examples
-
-For a full example with a browser client communicating with a ws server, see the
-examples folder.
-
-Note that the usage together with Express 3.0 is quite different from Express
-2.x. The difference is expressed in the two different serverstats-examples.
-
-Otherwise, see the test cases.
-
 ### Running the tests
 
 ```
@@ -157,7 +105,7 @@ make test
 
 ## API Docs
 
-See [`/doc/ws.md`](https://github.com/websockets/ws/blob/master/doc/ws.md) for Node.js-like docs for the ws classes.
+See [`/doc/wsd.md`](https://github.com/websockets/ws/blob/master/doc/ws.md) for Node.js-like docs for the ws classes.
 
 ## Changelog
 
@@ -187,5 +135,3 @@ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
 CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-[archive]: http://web.archive.org/web/20130314230536/http://hobbycoding.posterous.com/the-fastest-websocket-module-for-nodejs
