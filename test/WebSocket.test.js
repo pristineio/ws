@@ -130,7 +130,7 @@ describe('WebSocket', function() {
         wss.on('connection', function(ws) {
           while (true) {
             if (ws.bufferedAmount > 0) break;
-            ws.send((new Array(10000)).join('hello'));
+            ws.send((new Array(1000000)).join('hello'));
           }
           ws.terminate();
           ws.on('close', function() {
@@ -1632,21 +1632,6 @@ describe('WebSocket', function() {
         var ws = new WebSocket('ws://localhost:' + port, options);
       });
     });
-
-    it('excludes default ports from host header', function(done) {
-      // can't create a server listening on ports 80 or 443
-      // so we need to expose the method that does this
-      var buildHostHeader = WebSocket.buildHostHeader
-      var host = buildHostHeader(false, 'localhost', 80)
-      assert.equal('localhost', host);
-      host = buildHostHeader(false, 'localhost', 88)
-      assert.equal('localhost:88', host);
-      host = buildHostHeader(true, 'localhost', 443)
-      assert.equal('localhost', host);
-      host = buildHostHeader(true, 'localhost', 8443)
-      assert.equal('localhost:8443', host);
-      done()
-    });
   });
 
   describe('custom-client-key', function() {
@@ -1658,7 +1643,7 @@ describe('WebSocket', function() {
       var wss = new WebSocketServer({server: srv, perMessageDeflate: true});
       srv.listen(++port, function() {
         var ws = new WebSocket('ws://localhost:' + port, {
-          key: token
+          clientKey: token
         });
         ws.on('open', function() {
           assert.ok(ws);

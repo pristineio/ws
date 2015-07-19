@@ -18,6 +18,7 @@ describe('Receiver', function() {
     p.add(getBufferFromHexString(packet));
     gotData.should.be.ok;
   });
+
   it('can parse close message', function() {
     var p = new Receiver();
     var packet = '88 00';
