@@ -7,15 +7,6 @@ describe('BufferPool', function() {
       var db = new BufferPool(1000);
       db.size.should.eql(1000);
     });
-    it('throws TypeError when called without new', function(done) {
-      try {
-        var db = BufferPool(1000);
-      }
-      catch (e) {
-        e.should.be.instanceof(TypeError);
-        done();
-      }
-    });
   });
   describe('#get', function() {
     it('grows the pool if necessary', function() {

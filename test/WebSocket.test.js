@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 var assert = require('assert')
   , https = require('https')
   , http = require('http')

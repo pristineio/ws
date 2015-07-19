@@ -1,3 +1,5 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 var http = require('http')
   , https = require('https')
   , WebSocket = require('../')
@@ -241,12 +243,12 @@ describe('WebSocketServer', function() {
       srv.listen(++port, function () {
         var wss1 = new WebSocketServer({server: srv, path: '/wss1'})
           , wss2 = new WebSocketServer({server: srv, path: '/wss2'});
-        (typeof srv._webSocketPaths).should.eql('object');
-        Object.keys(srv._webSocketPaths).length.should.eql(2);
+        (typeof srv.webSocketPaths).should.eql('object');
+        Object.keys(srv.webSocketPaths).length.should.eql(2);
         wss1.close();
-        Object.keys(srv._webSocketPaths).length.should.eql(1);
+        Object.keys(srv.webSocketPaths).length.should.eql(1);
         wss2.close();
-        (typeof srv._webSocketPaths).should.eql('undefined');
+        (typeof srv.webSocketPaths).should.eql('undefined');
         srv.close();
         done();
       });
