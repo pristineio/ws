@@ -18,7 +18,7 @@ npm install --save wsd
 ### Sending and receiving text data
 
 ```js
-var WebSocket = require('ws');
+var WebSocket = require('wsd');
 var ws = new WebSocket('ws://www.host.com/path');
 ws.on('open', function open() {
   ws.send('something');
@@ -33,7 +33,7 @@ ws.on('message', function(data, flags) {
 ### Sending binary data
 
 ```js
-var WebSocket = require('ws');
+var WebSocket = require('wsd');
 var ws = new WebSocket('ws://www.host.com/path');
 
 ws.on('open', function open() {
@@ -54,7 +54,7 @@ data.
 ### Server example
 
 ```js
-var WebSocketServer = require('ws').Server;
+var WebSocketServer = require('wsd').Server;
 var wss = new WebSocketServer({ port: 8080 });
 wss.on('connection', function connection(ws) {
   ws.on('message', function incoming(message) {
@@ -67,7 +67,7 @@ wss.on('connection', function connection(ws) {
 ### Server sending broadcast data
 
 ```js
-var WebSocketServer = require('ws').Server;
+var WebSocketServer = require('wsd').Server;
 var wss = new WebSocketServer({ port: 8080 });
 wss.broadcast = function broadcast(data) {
   wss.clients.forEach(function each(client) {
@@ -105,7 +105,7 @@ make test
 
 ## API Docs
 
-See [`/doc/wsd.md`](https://github.com/websockets/ws/blob/master/doc/ws.md) for Node.js-like docs for the ws classes.
+See [`/doc/wsd.md`](https://github.com/pristineio/wsd/blob/diet/doc/wsd.md) for Node.js-like docs for the ws classes.
 
 ## Changelog
 

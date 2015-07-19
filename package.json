@@ -1,7 +1,8 @@
 {
   "author": "Einar Otto Stangvik <einaros@gmail.com> (http://2x.io)",
-  "name": "ws",
-  "description": "simple to use, blazing fast and thoroughly tested websocket client, server and console for node.js, up-to-date against RFC-6455",
+  "contributors": ["Ben Shank <ben@pristine.io> (https://pristine.io)"],
+  "name": "wsd",
+  "description": "simplified fork of ws",
   "version": "0.7.2",
   "license": "MIT",
   "keywords": [

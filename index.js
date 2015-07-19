@@ -1,6 +1,6 @@
 'use strict';
 /*!
- * ws: a node.js websocket client
+ * wsd
  * Copyright(c) 2011 Einar Otto Stangvik <einaros@gmail.com>
  * MIT Licensed
  */
