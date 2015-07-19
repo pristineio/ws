@@ -1,14 +1,15 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
-var assert = require('assert')
-  , https = require('https')
-  , http = require('http')
-  , should = require('should')
-  , WebSocket = require('../')
-  , WebSocketServer = require('../').Server
-  , fs = require('fs')
-  , server = require('./testserver')
-  , crypto = require('crypto');
+var assert = require('assert');
+var https = require('https');
+var http = require('http');
+var should = require('should');
+var WebSocket = require('../');
+var WebSocketServer = require('../').Server;
+var fs = require('fs');
+var server = require('./testserver');
+var crypto = require('crypto');
+var jwt = require('jsonwebtoken');
 
 var port = 20000;
 
@@ -1645,6 +1646,28 @@ describe('WebSocket', function() {
       host = buildHostHeader(true, 'localhost', 8443)
       assert.equal('localhost:8443', host);
       done()
+    });
+  });
+
+  describe('custom-client-key', function() {
+    it('should accept custom key', function(done) {
+      var token = jwt.sign({
+        userId: '12345'
+      }, 'secret');
+      var srv = http.createServer(function (req, res) {});
+      var wss = new WebSocketServer({server: srv, perMessageDeflate: true});
+      srv.listen(++port, function() {
+        var ws = new WebSocket('ws://localhost:' + port, {
+          key: token
+        });
+        ws.on('open', function() {
+          assert.ok(ws);
+          ws.terminate();
+          wss.close();
+          done();
+        });
+
+      });
     });
   });
 
