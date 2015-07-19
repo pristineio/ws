@@ -1,12 +1,8 @@
 # wsd: simplified fork of `ws`
 
-[![Build Status](https://travis-ci.org/websockets/ws.svg?branch=master)](https://travis-ci.org/websockets/ws)
-
-`wsd` is a simplified fork of `ws`.
-
 ## API Docs
 
-See [`/doc/wsd.md`](https://github.com/pristineio/wsd/blob/diet/doc/wsd.md) for Node.js-like docs for the ws classes.
+[`/doc/wsd.md`](https://github.com/pristineio/wsd/blob/diet/doc/wsd.md)
 
 ## License
 
