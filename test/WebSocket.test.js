@@ -1348,22 +1348,6 @@ describe('WebSocket', function() {
       });
     });
 
-    it('without reserved error code 1004 throws exception', function(done) {
-      server.createServer(++port, function(srv) {
-        var ws = new WebSocket('ws://localhost:' + port);
-        ws.on('open', function() {
-          try {
-            ws.close(1004);
-          }
-          catch (e) {
-            srv.close();
-            ws.terminate();
-            done();
-          }
-        });
-      });
-    });
-
     it('without message is successfully transmitted to the server', function(done) {
       server.createServer(++port, function(srv) {
         var ws = new WebSocket('ws://localhost:' + port);
