@@ -7,3 +7,5 @@ bench
 doc
 examples
 test
+.npmrc
+.jshintrc
