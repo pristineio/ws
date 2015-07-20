@@ -1439,6 +1439,7 @@ describe('WebSocket', function() {
   });
 
   describe('ssl', function() {
+    this.timeout(5000);
     it('can connect to secure websocket server', function(done) {
       var options = {
         key: fs.readFileSync(__dirname + '/fixtures/key.pem'),
@@ -1651,7 +1652,6 @@ describe('WebSocket', function() {
           wss.close();
           done();
         });
-
       });
     });
   });
