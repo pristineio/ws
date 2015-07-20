@@ -1,4 +1,4 @@
-# ws
+# wsd
 
 ## Class: ws.Server
 
