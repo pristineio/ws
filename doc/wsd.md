@@ -1,10 +1,10 @@
 # wsd
 
-## Class: ws.Server
+## Class: wsd.Server
 
 This class is a WebSocket server. It is an `EventEmitter`.
 
-### new ws.Server([options], [callback])
+### new wsd.Server([options], [callback])
 
 * `options` Object
   * `host` String
@@ -73,7 +73,7 @@ Close the server and terminate all clients
 
 Handles a HTTP Upgrade request. `request` is an instance of `http.ServerRequest`, `socket` is an instance of `net.Socket`.
 
-When the Upgrade was successfully, the `callback` will be called with a `ws.WebSocket` object as parameter.
+When the Upgrade was successfully, the `callback` will be called with a `wsd.WebSocket` object as parameter.
 
 ### Event: 'error'
 
@@ -91,14 +91,14 @@ Emitted with the object of HTTP headers that are going to be written to the `Str
 
 `function (socket) { }`
 
-When a new WebSocket connection is established. `socket` is an object of type `ws.WebSocket`.
+When a new WebSocket connection is established. `socket` is an object of type `wsd.WebSocket`.
 
 
-## Class: ws.WebSocket
+## Class: wsd.WebSocket
 
 This class represents a WebSocket connection. It is an `EventEmitter`.
 
-### new ws.WebSocket(address, [protocols], [options])
+### new wsd.WebSocket(address, [protocols], [options])
 
 * `address` String
 * `protocols` String|Array
@@ -106,7 +106,7 @@ This class represents a WebSocket connection. It is an `EventEmitter`.
   * `protocol` String
   * `agent` Agent
   * `headers` Object
-  * `protocolVersion` Number|String  
+  * `protocolVersion` Number|String
     -- the following only apply if `address` is a String
   * `host` String
   * `origin` String
@@ -119,11 +119,11 @@ This class represents a WebSocket connection. It is an `EventEmitter`.
   * `rejectUnauthorized` Boolean
   * `perMessageDeflate` Boolean|Object
 
-Instantiating with an `address` creates a new WebSocket client object. If `address` is an Array (request, socket, rest), it is instantiated as a Server client (e.g. called from the `ws.Server`).
+Instantiating with an `address` creates a new WebSocket client object. If `address` is an Array (request, socket, rest), it is instantiated as a Server client (e.g. called from the `wsd.Server`).
 
 ### options.perMessageDeflate
 
-Parameters of permessage-deflate extension which have the same form with the one for `ws.Server` except the direction of requests. (e.g. `serverNoContextTakeover` is the value to be requested to the server)
+Parameters of permessage-deflate extension which have the same form with the one for `wsd.Server` except the direction of requests. (e.g. `serverNoContextTakeover` is the value to be requested to the server)
 
 ### websocket.bytesReceived
 
