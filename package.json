@@ -1,6 +1,8 @@
 {
   "author": "Einar Otto Stangvik <einaros@gmail.com> (http://2x.io)",
-  "contributors": ["Ben Shank <ben@pristine.io> (https://pristine.io)"],
+  "contributors": [
+    "Ben Shank <ben@pristine.io> (https://pristine.io)"
+  ],
   "name": "wsd",
   "description": "A simplified fork of ws",
   "version": "0.0.2",
@@ -23,7 +25,7 @@
   "scripts": {
     "test": "make test"
   },
-  "dependencies": { },
+  "dependencies": {},
   "optionalDependencies": {
     "bufferutil": "1.1.x",
     "utf-8-validate": "1.1.x"
@@ -33,6 +35,7 @@
     "benchmark": "0.3.x",
     "expect.js": "0.3.x",
     "mocha": "2.2.x",
+    "jsonwebtoken": "^5.0.4",
     "should": "4.3.x",
     "tinycolor": "0.0.x"
   }
