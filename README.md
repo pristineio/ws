@@ -2,7 +2,7 @@
 
 ## API Docs
 
-[`/doc/wsd.md`](https://github.com/pristineio/wsd/blob/diet/doc/wsd.md)
+[`/doc/wsd.md`](https://github.com/pristineio/wsd/blob/master/doc/wsd.md)
 
 ## License
 
