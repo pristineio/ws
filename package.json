@@ -2,8 +2,8 @@
   "author": "Einar Otto Stangvik <einaros@gmail.com> (http://2x.io)",
   "contributors": ["Ben Shank <ben@pristine.io> (https://pristine.io)"],
   "name": "wsd",
-  "description": "simplified fork of ws",
-  "version": "0.7.2",
+  "description": "A simplified fork of ws",
+  "version": "0.0.1",
   "license": "MIT",
   "keywords": [
     "HyBi",
@@ -32,6 +32,5 @@
     "mocha": "2.2.x",
     "should": "4.3.x",
     "tinycolor": "0.0.x"
-  },
-  "gypfile": true
+  }
 }
