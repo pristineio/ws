@@ -81,19 +81,19 @@ When the Upgrade was successfully, the `callback` will be called with a `wsd.Web
 
 ### Event: 'error'
 
-`function (error) { }`
+`function(error) { }`
 
 If the underlying server emits an error, it will be forwarded here.
 
 ### Event: 'headers'
 
-`function (headers) { }`
+`function(headers) { }`
 
 Emitted with the object of HTTP headers that are going to be written to the `Stream` as part of the handshake.
 
 ### Event: 'connection'
 
-`function (socket) { }`
+`function(socket) { }`
 
 When a new WebSocket connection is established. `socket` is an object of type `wsd.WebSocket`.
 
@@ -180,7 +180,7 @@ Sends `data` through the connection. `options` can be an object with members `ma
 
 ### websocket.stream([options], callback)
 
-Streams data through calls to a user supplied function. `options` can be an object with members `mask` and `binary`.  `callback` is executed on successive ticks of which send is `function (data, final)`.
+Streams data through calls to a user supplied function. `options` can be an object with members `mask` and `binary`.  `callback` is executed on successive ticks of which send is `function(data, final)`.
 
 ### websocket.terminate()
 
@@ -188,13 +188,13 @@ Immediately shuts down the connection
 
 ### Event: 'error'
 
-`function (error) { }`
+`function(error) { }`
 
 If the client emits an error, this event is emitted (errors from the underlying `net.Socket` are forwarded here).
 
 ### Event: 'close'
 
-`function (code, message) { }`
+`function(code, message) { }`
 
 Is emitted when the connection is closed. `code` is defined in the WebSocket specification.
 
@@ -202,24 +202,24 @@ The `close` event is also emitted when then underlying `net.Socket` closes the c
 
 ### Event: 'message'
 
-`function (data, flags) { }`
+`function(data, flags) { }`
 
 Is emitted when data is received. `flags` is an object with member `binary`.
 
 ### Event: 'ping'
 
-`function (data, flags) { }`
+`function(data, flags) { }`
 
 Is emitted when a ping is received. `flags` is an object with member `binary`.
 
 ### Event: 'pong'
 
-`function (data, flags) { }`
+`function(data, flags) { }`
 
 Is emitted when a pong is received. `flags` is an object with member `binary`.
 
 ### Event: 'open'
 
-`function () { }`
+`function() { }`
 
 Emitted when the connection is established.
