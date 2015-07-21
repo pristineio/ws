@@ -1,9 +1,9 @@
 'use strict';
-/*!
- * wsd
- * Copyright(c) 2011 Einar Otto Stangvik <einaros@gmail.com>
- * MIT Licensed
- */
+//
+// wsd
+// Copyright(c) 2011 Einar Otto Stangvik <einaros@gmail.com>
+// MIT Licensed
+//
 
 var WS = module.exports = require('./lib/WebSocket');
 WS.Server = require('./lib/WebSocketServer');

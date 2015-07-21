@@ -1643,9 +1643,7 @@ describe('WebSocket', function() {
       var srv = http.createServer(function (req, res) {});
       var wss = new WebSocketServer({server: srv, perMessageDeflate: true});
       srv.listen(++port, function() {
-        var ws = new WebSocket('ws://localhost:' + port, {
-          clientKey: token
-        });
+        var ws = new WebSocket('ws://localhost:' + port, {clientKey: token});
         ws.on('open', function() {
           assert.ok(ws);
           ws.terminate();
