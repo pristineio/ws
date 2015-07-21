@@ -69,6 +69,10 @@ If a property is empty then either an offered configuration or a default value i
 
 Close the server and terminate all clients
 
+### server.setClientKey(x, y)
+
+Alter the the client's key in the client map from x to y.
+
 ### server.handleUpgrade(request, socket, upgradeHead, callback)
 
 Handles a HTTP Upgrade request. `request` is an instance of `http.ServerRequest`, `socket` is an instance of `net.Socket`.
