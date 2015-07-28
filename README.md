@@ -1,4 +1,5 @@
 # wsd: simplified fork of `ws`
+[![Code Climate](https://codeclimate.com/github/pristineio/wsd/badges/gpa.svg)](https://codeclimate.com/github/pristineio/wsd)
 
 ## API Docs
 
