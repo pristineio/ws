@@ -1416,6 +1416,7 @@ describe('WebSocket', function() {
     });
 
     it('consumes all data when the server socket closed', function(done) {
+      this.timeout(5000);
       var wss = new WebSocketServer({port: ++port}, function() {
         wss.on('connection', function(conn) {
           conn.send('foo');
@@ -1427,6 +1428,7 @@ describe('WebSocket', function() {
         var messages = [];
         ws.on('message', function (message) {
           messages.push(message);
+          console.log(messages);
           if (messages.length === 3) {
             assert.deepEqual(messages, ['foo', 'bar', 'baz']);
             wss.close();
