@@ -1,14 +1,11 @@
+'use strict';
 var benchmark = require('benchmark');
 var Sender = require('../').Sender;
 var suite = new benchmark.Suite('Sender');
 require('tinycolor');
 require('./util');
 
-suite.on('start', function() {
-});
-
-//suite.on('cycle', function() {
-//});
+suite.on('start', function() { });
 
 var A = [];
 for(var k=0; k<(1<<16); ++k) {
@@ -61,9 +58,9 @@ suite.on('cycle', function(bench, details) {
   console.log('\n  ' + suite.name.grey, details.name.white.bold);
   console.log('  ' + [details.hz.toFixed(2).cyan + ' ops/sec'.grey,
     details.count.toString().white + ' times executed'.grey,
-    'benchmark took '.grey + details.times.elapsed.toString().white + 
+    'benchmark took '.grey + details.times.elapsed.toString().white +
       ' sec.'.grey
-  ].join(', '.grey));  
+  ].join(', '.grey));
 });
 
 if (!module.parent) {
