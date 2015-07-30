@@ -9,6 +9,7 @@ var WS = module.exports = require('./lib/WebSocket');
 WS.Server = require('./lib/WebSocketServer');
 WS.Sender = require('./lib/Sender');
 WS.Receiver = require('./lib/Receiver');
+WS.ErrorCodes = require('./lib/ErrorCodes');
 
 WS.createServer = function createServer(options, fn) {
   var server = new WS.Server(options);
