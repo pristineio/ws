@@ -27,8 +27,8 @@
   },
   "dependencies": {},
   "optionalDependencies": {
-    "bufferutil": "1.1.x",
-    "utf-8-validate": "1.1.x"
+    "bufferutil": "1.2.x",
+    "utf-8-validate": "1.2.x"
   },
   "devDependencies": {
     "ansi": "0.3.x",
