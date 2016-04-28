@@ -19,9 +19,6 @@
     "type": "git",
     "url": "git://github.com/pristineio/wsd"
   },
-  "publishConfig": {
-    "registry": "http://nexus.vpc/content/repositories/pristine-npm"
-  },
   "scripts": {
     "test": "make test"
   },
